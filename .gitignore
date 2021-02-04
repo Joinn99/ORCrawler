@@ -1,4 +1,4 @@
 Data/*
 __init__.py
 *.pyc
-log.txt
+Meta/*
