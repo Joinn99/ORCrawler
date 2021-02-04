@@ -1,4 +1,6 @@
 import scrapy
+import sqlite3
+import pandas as pd
 from tqdm import tqdm
 from scrapy.loader import ItemLoader
 from orv2.items import RestItem, RevItem, RestLoader, RevLoader
@@ -13,8 +15,6 @@ class orv2(scrapy.Spider):
         '''
         Initilization
         '''
-        # with open('Data/RESTID.csv', 'r') as f:
-        #     self.rest_list = f.readlines()[:20000]
         self.url = 'https://www.openrice.com/en/hongkong/r-openrice-r{:s}/reviews'
 
     def start_requests(self):
@@ -22,8 +22,17 @@ class orv2(scrapy.Spider):
         Run the crawling.
         '''
         ## Iteration
-        for restID in tqdm([107258]): # 
-            yield scrapy.Request(self.url.format(str(restID)))
+        conn = sqlite3.connect("Meta/ORID.sqlite")
+        for _ in range(5):
+            restID = pd.read_sql("SELECT ID FROM rid WHERE state=1 LIMIT 1", conn)["ID"]
+            if restID.empty:
+                print("Finished.")
+                conn.close()
+            else:
+                yield scrapy.Request(self.url.format(str(restID[0])))
+                conn.execute("UPDATE rid SET State=0 WHERE ID={:d}".format(restID[0]))
+                conn.commit()
+                print("ID: {:d} Success.".format(restID[0]))
 
 
     def parse(self, response):

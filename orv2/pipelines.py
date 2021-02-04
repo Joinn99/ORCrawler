@@ -6,22 +6,22 @@
 
 # useful for handling different item types with a single interface
 import gzip
-from scrapy.exporters import CsvItemExporter
+from scrapy.exporters import CsvItemExporter, JsonLinesItemExporter
 from scrapy.exceptions import DropItem
 
 
-class GzipCsvItemExporter(CsvItemExporter):
+class GzipJsonLinesItemExporter(JsonLinesItemExporter):
     def __init__(self, stream, **kwargs):
         self.gzfile = gzip.GzipFile(fileobj=stream)
-        super(GzipCsvItemExporter, self).__init__(self.gzfile, **kwargs)
+        super(GzipJsonLinesItemExporter, self).__init__(self.gzfile, **kwargs)
 
     def finish_exporting(self):
         self.gzfile.close()
 
 class Orv2Pipeline:
     def open_spider(self, spider):
-        self.rest_exporter = GzipCsvItemExporter(open('Data/rest.csv.gz', 'wb'))
-        self.review_exporter = GzipCsvItemExporter(open('Data/review.csv.gz', 'wb'))
+        self.rest_exporter = GzipJsonLinesItemExporter(open('Data/rest.jl.gz', 'ab'), encoding='utf-8')
+        self.review_exporter = GzipJsonLinesItemExporter(open('Data/review.jl.gz', 'ab'), encoding='utf-8')
         self.rest_exporter.start_exporting()
         self.review_exporter.start_exporting()
 

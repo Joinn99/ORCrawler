@@ -37,6 +37,8 @@ class RestLoader(ItemLoader):
     DT_in = MapCompose(str) # Date Filter
     TP_in = MapCompose(str)
 
+    RT_in = MapCompose(float)
+
     TP_out = Join("|")
 
 
@@ -72,6 +74,8 @@ class RevItem(scrapy.Item):
 class RevLoader(ItemLoader):
     default_input_processor = MapCompose(int)
     default_output_processor = TakeFirst()
+
+    SP_in = MapCompose(float)
 
     TT_in = MapCompose(str)
     BD_in = MapCompose(str)
