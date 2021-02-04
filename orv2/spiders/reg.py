@@ -8,3 +8,14 @@ DT_REG = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")
 DAY_REG = re.compile(r"[1-7](?= day)")
 EMP_REG = re.compile(r"<div.+?(re-icon-)")          # Emoji Previous
 EMA_REG = re.compile(r"(?<=[a-z|0-9])\"></div>")    # Emoji After
+
+PR_REG = re.compile(r"(?<==).")
+TP_REG = re.compile(r"(?<=/)[^/]+$")
+AS_REG = re.compile(r"^[TDHSV]")
+ASR_REG = re.compile(r"[1-5](?=0_red_s$)")
+UI_REG = re.compile(r"(?<=id=)[0-9]+")
+OR_REG = re.compile(r"(?<=smiley_)[a-z]+(?=_)")
+VC_REG = re.compile(r"[0-9]+")
+CE_REG = re.compile(r"(?<=icon-).+$")
+UR_REG = re.compile(r"(?<=/)[0-9|A-Z|a-z]+$")
+STAR_REG = re.compile(r"(?<=on_)[gy]")
