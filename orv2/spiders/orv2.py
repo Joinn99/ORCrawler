@@ -26,14 +26,12 @@ class orv2(scrapy.Spider):
         while True:
             restID = pd.read_sql("SELECT ID FROM rid WHERE state=1 LIMIT 1", conn)["ID"]
             if restID.empty:
-                print("Finished.")
                 conn.close()
             else:
                 print("ID: {:d} |".format(restID[0]), end=".")
                 yield scrapy.Request(self.url.format(str(restID[0])))
                 conn.execute("UPDATE rid SET State=0 WHERE ID={:d}".format(restID[0]))
                 conn.commit()
-                print("Success.")
                 
 
 
@@ -43,7 +41,6 @@ class orv2(scrapy.Spider):
             yield self._parse_rev(review)
 
         if response.xpath("//div[@class='or-sprite common_pagination_more_r_desktop']"):
-            print(".", end="")
             next_url = response.xpath("//div[@class='or-sprite common_pagination_more_r_desktop']/../@href").get()
             yield scrapy.Request('https://www.openrice.com/' + next_url)
         else:

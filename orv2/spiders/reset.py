@@ -2,7 +2,7 @@ import sqlite3
 import gzip
 
 if __name__ == "__main__":
-    conn = sqlite3.connect("MEta/ORID.sqlite")
+    conn = sqlite3.connect("Meta/ORID.sqlite")
     conn.execute("UPDATE rid SET State=1")
     conn.commit()
     conn.close()

@@ -13,7 +13,7 @@ SPIDER_MODULES = ['orv2.spiders']
 NEWSPIDER_MODULE = 'orv2.spiders'
 
 #Log level
-LOG_LEVEL = 'WARNING'
+LOG_LEVEL = 'INFO'
 LOG_FILE = 'Meta/log.txt'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -24,6 +24,7 @@ ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 CONCURRENT_REQUESTS = 16
+CONCURRENT_ITEMS = 16
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
